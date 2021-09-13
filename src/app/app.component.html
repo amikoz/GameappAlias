@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Valeria Kozenasheva, Han Yang">
+    <title>Associations game app</title>
+
+  </head>
+
+<body> 
+
+<div class="example-button-row" style="margin: 10px; justify-content:flex-end; position:fixed; right: 0;">
+  <a mat-raised-button routerLink="/" color="primary" style="margin-right: 10px;"> Home</a>
+  <a mat-raised-button routerLink="/rules" color="primary" style="margin-right: 10px;">Rules</a>
+  <a mat-raised-button routerLink="/about" color="primary" style="margin-right: 10px;">About the project</a>
+</div>
+
+<mat-divider></mat-divider>
+
+<router-outlet></router-outlet>
+
+
+    <div class="text-center">    <div style="bottom:1%; position: fixed;">
+    <div class="card-text" >
+      <small class="text-muted">Project by Valeria Kozenasheva and Han Yang</small>
+    </div>
+    </div>
+  </div>
+
+
+  </body>
+
+</html>

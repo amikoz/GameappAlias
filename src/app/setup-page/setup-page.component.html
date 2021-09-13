@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Valeria Kozenasheva, Han Yang">
+  <title>Associations game app</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+
+<body class="d-flex h-100 text-center">
+
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column" style="text-align: center;">
+    <main class="px-3 mt-5">
+      <h1>Create teams here</h1>
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <p style="margin-top:2%; margin-bottom: 2%;">
+          <span>Choose the level:</span>
+        </p>
+
+
+        <mat-form-field>
+          <mat-label>Level </mat-label>
+          <mat-select matNativeControl [(value)]="levelofthegame" required ngModel #level="ngModel" name="level">
+            <mat-option value="easy">easy</mat-option>
+            <mat-option value="medium">medium</mat-option>
+            <mat-option value="hard">hard</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <p style="margin-top:2%; margin-bottom: 2%;">
+          <span>Choose the number of the teams playing:</span>
+        </p>
+        <mat-form-field>
+          <mat-label>Teams </mat-label>
+          <mat-select matNativeControl [(value)]="selectedNumber" required ngModel #numberofteams="ngModel"
+            name="numberofteams">
+            <mat-option value="2 teams">2</mat-option>
+            <mat-option value="3 teams">3</mat-option>
+            <mat-option value="4 teams">4</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <div [ngSwitch]="selectedNumber">
+          <div *ngSwitchCase="'2 teams'">
+            <p style="margin-top:2%; margin-bottom: 2%;">
+              <span>Fill in the names for the teams:</span>
+            </p>
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Name of the first team</mat-label>
+                <input matInput placeholder="Enter the name" type="text" required [(ngModel)]="team1" name="team1name">
+              </mat-form-field>
+            </div>
+            <p>
+              <mat-form-field appearance="outline">
+                <mat-label>Name of the second team</mat-label>
+                <input matInput placeholder="Enter the name" type="text" required name="team2name" [(ngModel)]="team2">
+              </mat-form-field>
+            </p>
+            <div class="example-button-row" style="margin: 10px; ">
+              <button mat-raised-button color="accent" [disabled]="f.invalid" routerLink="/game"
+                (click)="editTheInfo1(); editTheInfo2(); getLevel(); getNum();"> Start </button>
+            </div>
+          </div>
+          <div *ngSwitchCase="'3 teams'">
+            <p style="margin-top:2%; margin-bottom: 2%;">
+              <span>Fill in the names for the teams:</span>
+            </p>
+            <p>
+              <mat-form-field appearance="outline">
+                <mat-label>Name of the first team</mat-label>
+                <input matInput placeholder="Enter the name" ngModel #team1name="ngModel" id="team1" type="text"
+                  required name="team1name" [(ngModel)]="team1">
+              </mat-form-field>
+            </p>
+
+            <p>
+              <mat-form-field appearance="outline">
+                <mat-label>Name of the second team</mat-label>
+                <input matInput placeholder="Enter the name" ngModel #team2name="ngModel" id="team2" type="text"
+                  required name="team2name" [(ngModel)]="team2">
+              </mat-form-field>
+            </p>
+
+            <p>
+              <mat-form-field appearance="outline">
+                <mat-label>Name of the third team</mat-label>
+                <input matInput placeholder="Enter the name" ngModel #team3name="ngModel" id="team3" type="text"
+                  required name="team3name" [(ngModel)]="team3">
+              </mat-form-field>
+            </p>
+            <div class="example-button-row" style="margin: 10px; ">
+              <button mat-raised-button color="accent" [disabled]="f.invalid" routerLink="/game"
+                (click)="editTheInfo1(); editTheInfo2(); editTheInfo3(); getLevel(); getNum();"> Start </button>
+            </div>
+          </div>
+          <div *ngSwitchCase="'4 teams'">
+            <p style="margin-top:2%; margin-bottom: 2%;">
+              <span>Fill in the names for the teams:</span>
+            </p>
+            <p>
+              <mat-form-field appearance="outline">
+                <mat-label>Name of the first team</mat-label>
+                <input matInput placeholder="Enter the name" ngModel #team1name="ngModel" id="team1" type="text"
+                  required name="team1name" [(ngModel)]="team1">
+              </mat-form-field>
+            </p>
+
+            <p>
+              <mat-form-field appearance="outline">
+                <mat-label>Name of the second team</mat-label>
+                <input matInput placeholder="Enter the name" ngModel #team2name="ngModel" id="team2" type="text"
+                  required name="team2name" [(ngModel)]="team2">
+              </mat-form-field>
+            </p>
+
+            <p>
+              <mat-form-field appearance="outline">
+                <mat-label>Name of the third team</mat-label>
+                <input matInput placeholder="Enter the name" ngModel #team3name="ngModel" id="team3" type="text"
+                  required name="team3name" [(ngModel)]="team3">
+              </mat-form-field>
+            </p>
+
+            <p>
+              <mat-form-field appearance="outline">
+                <mat-label>Name of the fourth team</mat-label>
+                <input matInput placeholder="Enter the name" ngModel #team4name="ngModel" id="team4" type="text"
+                  required name="team4name" [(ngModel)]="team4">
+              </mat-form-field>
+            </p>
+            <div class="example-button-row" style="margin: 10px; ">
+              <button mat-raised-button color="accent" [disabled]="f.invalid" routerLink="/game"
+                (click)="editTheInfo1(); editTheInfo2(); editTheInfo3(); editTheInfo4(); getLevel(); getNum();"> Start
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </main>
+    <footer class="mt-auto text-white-50" style="text-align: center;">
+      <p>Project by Valeria Kozenasheva and Han Yang</p>
+    </footer>
+  </div>
+
+</body>
+
+</html>
