@@ -87,7 +87,7 @@ export class GameComponent implements OnInit {
     this.result_team4 = result_team4;
   }
 
-  config: CountdownConfig = { leftTime: 10, demand: true };
+  config: CountdownConfig = { leftTime: 60, demand: true };
   notify = '';
 
   timeoutShow: boolean = false;
