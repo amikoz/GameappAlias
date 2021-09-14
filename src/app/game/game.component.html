@@ -17,31 +17,356 @@
     <main class="px-3 mt-5">
       <div [ngSwitch]="numTeams" class="card-body">
         <div *ngSwitchCase="'2 teams'">
-          <p style="margin: 10px;">
-            <span>Team <b>{{team1}}</b> is playing. Good luck!</span>
-          </p>
-          <countdown #cd [config]="config" (event)="handleEvent($event)"></countdown>
-          <div>
-            <button button mat-raised-button color="accent" (click)="cd.begin();randomWord(); disable();"
-              [disabled]="click" style="margin-top: 10px; ">Begin</button>
+          <div *ngIf="!results2Show">
+            <div *ngIf="!continue">
+              <p style="margin: 10px; font-size: 20px;">
+                <span>Team <b>{{team1}}</b> is playing. Good luck!</span>
+              </p>
+              <countdown #cd [config]="config" (event)="handleEvent($event)"
+                style="font-family: 'Gill Sans', sans-serif; font-size: 30px;"></countdown>
+              <div>
+                <button button mat-raised-button color="accent"
+                  (click)="cd.begin();randomWord(); disable(); randWordShow = true" [disabled]="clickDisable"
+                  style="margin-top: 10px; ">Begin</button>
+              </div>
+              <div *ngIf="randWordShow" style="font-family: 'Gill Sans', sans-serif; font-size: 30px; margin: 15px;">
+                {{randWord}}
+
+                <div class="button-row">
+                  <button button mat-fab color="warn" (click)="randomWord();" style="margin: 10px;"
+                    [disabled]="timeoutShow">Undone</button>
+                  <button button mat-fab color="primary" (click)="guessed1(); randomWord();" [disabled]="timeoutShow"
+                    style="margin: 10px;">Done</button>
+                </div>
+              </div>
+              <hr>
+              <div *ngIf="timeoutShow" style="font-size: 20px;">
+                Time is over! You have guessed <b>{{result_team1}}
+                </b> words in total
+                <button button mat-raised-button color="accent" *ngIf="!continue"
+                  (click)="continue=true; clickDisable=false; timeoutShow=false; randWordShow = false;"
+                  style="margin: 10px;">Next team </button>
+              </div>
+            </div>
+
+            <div *ngIf="continue">
+              <p style="margin: 10px;font-size: 20px;">
+                <span>Team <b>{{team2}}</b> is playing. Good luck!</span>
+              </p>
+              <countdown #cd [config]="config" (event)="handleEvent($event)"
+                style="font-family: 'Gill Sans', sans-serif; font-size: 30px;"></countdown>
+              <div>
+                <button button mat-raised-button color="accent"
+                  (click)="cd.begin();randomWord(); disable(); randWordShow = true" [disabled]="clickDisable"
+                  style="margin-top: 10px; ">Begin</button>
+              </div>
+              <div *ngIf="randWordShow" style="font-family: 'Gill Sans', sans-serif; font-size: 30px; margin: 15px;">
+                {{randWord}}
+                <div class="button-row">
+                  <button button mat-fab color="warn" (click)="randomWord();" style="margin: 10px;"
+                    [disabled]="timeoutShow">Undone</button>
+                  <button button mat-fab color="primary" (click)="guessed2(); randomWord();" [disabled]="timeoutShow"
+                    style="margin: 10px;">Done</button>
+                </div>
+              </div>
+              <hr>
+              <div *ngIf="timeoutShow" style="margin: 10px; font-size: 20px;">
+                Time is over! You have guessed <b>{{result_team2}}
+                </b> words in total
+                <div>
+                  <span style="margin: 10px; font-size: 20px;"> Do you want to play one more round or to finish?</span>
+                </div>
+                <div class="button-row">
+                  <button button mat-raised-button color="accent"
+                    (click)="continue=false; clickDisable=false; timeoutShow=false" style="margin: 10px;">One more round
+                  </button>
+                  <button button mat-raised-button color="primary" (click)="results2Show = true"
+                    style="margin: 10px;">Finish the
+                    game </button>
+                </div>
+              </div>
+            </div>
           </div>
-          {{randWord}}
-          <div class="button-row">
-            <button button mat-fab color="warn" (click)="randomWord();" style="margin: 10px;" [disabled]="clickPoints">Undone</button>
-            <button button mat-fab color="primary" (click)="guessed1(); randomWord();"[disabled]="clickPoints"
-              style="margin: 10px;">Done</button>
+          <div *ngIf="results2Show">
+            <p style="margin: 10px; font-family: 'Gill Sans', sans-serif; font-size: 20px;">
+              <span>Team <b>{{team1}}</b>: {{result_team1}} points</span>
+              <br /><span>Team <b>{{team2}}</b>: {{result_team2}} points</span>
+            </p>
           </div>
-          {{ notify }}<b>{{result_team1}}
-          </b>
-          <button button mat-fab color="primary" (click)="guessed1(); randomWord();"[disabled]="clickPoints"style="margin: 10px;">Continue </button>
-          <div *ngSwitchCase="'3 teams'">
-            3 works
+        </div>
+
+        <div *ngSwitchCase="'3 teams'">
+          <div *ngIf="!results2Show">
+            <div *ngIf="!continue">
+              <div *ngIf="!continue2">
+                <p style="margin: 10px; font-size: 20px;">
+                  <span>Team <b>{{team1}}</b> is playing. Good luck!</span>
+                </p>
+                <countdown #cd [config]="config" (event)="handleEvent($event)"
+                  style="font-family: 'Gill Sans', sans-serif; font-size: 30px;"></countdown>
+                <div>
+                  <button button mat-raised-button color="accent"
+                    (click)="cd.begin();randomWord(); disable(); randWordShow = true" [disabled]="clickDisable"
+                    style="margin-top: 10px; ">Begin</button>
+                </div>
+                <div *ngIf="randWordShow" style="font-family: 'Gill Sans', sans-serif; font-size: 30px; margin: 15px;">
+                  {{randWord}}
+
+                  <div class="button-row">
+                    <button button mat-fab color="warn" (click)="randomWord();" style="margin: 10px;"
+                      [disabled]="timeoutShow">Undone</button>
+                    <button button mat-fab color="primary" (click)="guessed1(); randomWord();" [disabled]="timeoutShow"
+                      style="margin: 10px;">Done</button>
+                  </div>
+                </div>
+                <hr>
+                <div *ngIf="timeoutShow" style="font-size: 20px;">
+                  Time is over! You have guessed <b>{{result_team1}}
+                  </b> words in total
+                  <button button mat-raised-button color="accent" *ngIf="!continue"
+                    (click)="continue=true; clickDisable=false; timeoutShow=false; randWordShow = false;"
+                    style="margin: 10px;">Next team </button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="continue">
+              <div *ngIf="!continue2">
+                <p style="margin: 10px; font-size: 20px;">
+                  <span>Team <b>{{team2}}</b> is playing. Good luck!</span>
+                </p>
+                <countdown #cd [config]="config" (event)="handleEvent($event)"
+                  style="font-family: 'Gill Sans', sans-serif; font-size: 30px;"></countdown>
+                <div>
+                  <button button mat-raised-button color="accent"
+                    (click)="cd.begin();randomWord(); disable(); randWordShow = true" [disabled]="clickDisable"
+                    style="margin-top: 10px; ">Begin</button>
+                </div>
+                <div *ngIf="randWordShow" style="font-family: 'Gill Sans', sans-serif; font-size: 30px; margin: 15px;">
+                  {{randWord}}
+
+                  <div class="button-row">
+                    <button button mat-fab color="warn" (click)="randomWord();" style="margin: 10px;"
+                      [disabled]="timeoutShow">Undone</button>
+                    <button button mat-fab color="primary" (click)="guessed2(); randomWord();" [disabled]="timeoutShow"
+                      style="margin: 10px;">Done</button>
+                  </div>
+                </div>
+                <hr>
+                <div *ngIf="timeoutShow" style="font-size: 20px;">
+                  Time is over! You have guessed <b>{{result_team2}}
+                  </b> words in total
+                  <button button mat-raised-button color="accent" *ngIf="continue"
+                    (click)="continue=false; continue2=true; clickDisable=false; timeoutShow=false; randWordShow = false;"
+                    style="margin: 10px;">Next team </button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="continue2">
+              <p style="margin: 10px;font-size: 20px;">
+                <span>Team <b>{{team3}}</b> is playing. Good luck!</span>
+              </p>
+              <countdown #cd [config]="config" (event)="handleEvent($event)"
+                style="font-family: 'Gill Sans', sans-serif; font-size: 30px;"></countdown>
+              <div>
+                <button button mat-raised-button color="accent"
+                  (click)="cd.begin();randomWord(); disable(); randWordShow = true" [disabled]="clickDisable"
+                  style="margin-top: 10px; ">Begin</button>
+              </div>
+              <div *ngIf="randWordShow" style="font-family: 'Gill Sans', sans-serif; font-size: 30px; margin: 15px;">
+                {{randWord}}
+                <div class="button-row">
+                  <button button mat-fab color="warn" (click)="randomWord();" style="margin: 10px;"
+                    [disabled]="timeoutShow">Undone</button>
+                  <button button mat-fab color="primary" (click)="guessed3(); randomWord();" [disabled]="timeoutShow"
+                    style="margin: 10px;">Done</button>
+                </div>
+              </div>
+              <hr>
+              <div *ngIf="timeoutShow" style="margin: 10px; font-size: 20px;">
+                Time is over! You have guessed <b>{{result_team3}}
+                </b> words in total
+                <div>
+                  <span style="margin: 10px; font-size: 20px;"> Do you want to play one more round or to finish?</span>
+                </div>
+                <div class="button-row">
+                  <button button mat-raised-button color="accent"
+                    (click)="continue=false; continue2=false; clickDisable=false; timeoutShow=false"
+                    style="margin: 10px;">One more round
+                  </button>
+                  <button button mat-raised-button color="primary" (click)="results2Show = true"
+                    style="margin: 10px;">Finish the
+                    game </button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div *ngSwitchCase="'4 teams'">
-            4 works
+          <div *ngIf="results2Show">
+            <p style="margin: 10px; font-family: 'Gill Sans', sans-serif; font-size: 20px;">
+              <span style="font-size: 25px;">Here are the results:</span>
+              <br /><span>Team <b>{{team1}}</b>: {{result_team1}} points</span>
+              <br /><span>Team <b>{{team2}}</b>: {{result_team2}} points</span>
+              <br /><span>Team <b>{{team3}}</b>: {{result_team3}} points</span>
+            </p>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'4 teams'">
+          <div *ngIf="!results2Show">
+            <div *ngIf="!continue">
+              <div *ngIf="!continue2">
+                <div *ngIf="!continue3">
+                  <p style="margin: 10px; font-size: 20px;">
+                    <span>Team <b>{{team1}}</b> is playing. Good luck!</span>
+                  </p>
+                  <countdown #cd [config]="config" (event)="handleEvent($event)"
+                    style="font-family: 'Gill Sans', sans-serif; font-size: 30px;"></countdown>
+                  <div>
+                    <button button mat-raised-button color="accent"
+                      (click)="cd.begin();randomWord(); disable(); randWordShow = true" [disabled]="clickDisable"
+                      style="margin-top: 10px; ">Begin</button>
+                  </div>
+                  <div *ngIf="randWordShow"
+                    style="font-family: 'Gill Sans', sans-serif; font-size: 30px; margin: 15px;">
+                    {{randWord}}
+
+                    <div class="button-row">
+                      <button button mat-fab color="warn" (click)="randomWord();" style="margin: 10px;"
+                        [disabled]="timeoutShow">Undone</button>
+                      <button button mat-fab color="primary" (click)="guessed1(); randomWord();"
+                        [disabled]="timeoutShow" style="margin: 10px;">Done</button>
+                    </div>
+                  </div>
+                  <hr>
+                  <div *ngIf="timeoutShow" style="font-size: 20px;">
+                    Time is over! You have guessed <b>{{result_team1}}
+                    </b> words in total
+                    <button button mat-raised-button color="accent" *ngIf="!continue"
+                      (click)="continue=true; clickDisable=false; timeoutShow=false; randWordShow = false;"
+                      style="margin: 10px;">Next team </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="continue">
+              <div *ngIf="!continue2">
+                <div *ngIf="!continue3">
+                <p style="margin: 10px; font-size: 20px;">
+                  <span>Team <b>{{team2}}</b> is playing. Good luck!</span>
+                </p>
+                <countdown #cd [config]="config" (event)="handleEvent($event)"
+                  style="font-family: 'Gill Sans', sans-serif; font-size: 30px;"></countdown>
+                <div>
+                  <button button mat-raised-button color="accent"
+                    (click)="cd.begin();randomWord(); disable(); randWordShow = true" [disabled]="clickDisable"
+                    style="margin-top: 10px; ">Begin</button>
+                </div>
+                <div *ngIf="randWordShow" style="font-family: 'Gill Sans', sans-serif; font-size: 30px; margin: 15px;">
+                  {{randWord}}
+
+                  <div class="button-row">
+                    <button button mat-fab color="warn" (click)="randomWord();" style="margin: 10px;"
+                      [disabled]="timeoutShow">Undone</button>
+                    <button button mat-fab color="primary" (click)="guessed2(); randomWord();" [disabled]="timeoutShow"
+                      style="margin: 10px;">Done</button>
+                  </div>
+                </div>
+                <hr>
+                <div *ngIf="timeoutShow" style="font-size: 20px;">
+                  Time is over! You have guessed <b>{{result_team2}}
+                  </b> words in total
+                  <button button mat-raised-button color="accent" *ngIf="continue"
+                    (click)="continue=false; continue2=true; clickDisable=false; timeoutShow=false; randWordShow = false;"
+                    style="margin: 10px;">Next team </button>
+                </div>
+              </div>
+            </div>
           </div>
 
+            <div *ngIf="continue2">
+              <div *ngIf="!continue3">
+              <p style="margin: 10px;font-size: 20px;">
+                <span>Team <b>{{team3}}</b> is playing. Good luck!</span>
+              </p>
+              <countdown #cd [config]="config" (event)="handleEvent($event)"
+                style="font-family: 'Gill Sans', sans-serif; font-size: 30px;"></countdown>
+              <div>
+                <button button mat-raised-button color="accent"
+                  (click)="cd.begin();randomWord(); disable(); randWordShow = true" [disabled]="clickDisable"
+                  style="margin-top: 10px; ">Begin</button>
+              </div>
+              <div *ngIf="randWordShow" style="font-family: 'Gill Sans', sans-serif; font-size: 30px; margin: 15px;">
+                {{randWord}}
+                <div class="button-row">
+                  <button button mat-fab color="warn" (click)="randomWord();" style="margin: 10px;"
+                    [disabled]="timeoutShow">Undone</button>
+                  <button button mat-fab color="primary" (click)="guessed3(); randomWord();" [disabled]="timeoutShow"
+                    style="margin: 10px;">Done</button>
+                </div>
+              </div>
+              <hr>
+              <div *ngIf="timeoutShow" style="margin: 10px; font-size: 20px;">
+                Time is over! You have guessed <b>{{result_team3}}
+                </b> words in total
+                <button button mat-raised-button color="accent" *ngIf="continue2"
+                (click)="continue=false; continue2=false; continue3=true; clickDisable=false; timeoutShow=false; randWordShow = false;"
+                style="margin: 10px;">Next team </button> 
+              </div>
+            </div>
+            </div>
+
+            <div *ngIf="continue3">
+              <p style="margin: 10px;font-size: 20px;">
+                <span>Team <b>{{team4}}</b> is playing. Good luck!</span>
+              </p>
+              <countdown #cd [config]="config" (event)="handleEvent($event)"
+                style="font-family: 'Gill Sans', sans-serif; font-size: 30px;"></countdown>
+              <div>
+                <button button mat-raised-button color="accent"
+                  (click)="cd.begin();randomWord(); disable(); randWordShow = true" [disabled]="clickDisable"
+                  style="margin-top: 10px; ">Begin</button>
+              </div>
+              <div *ngIf="randWordShow" style="font-family: 'Gill Sans', sans-serif; font-size: 30px; margin: 15px;">
+                {{randWord}}
+                <div class="button-row">
+                  <button button mat-fab color="warn" (click)="randomWord();" style="margin: 10px;"
+                    [disabled]="timeoutShow">Undone</button>
+                  <button button mat-fab color="primary" (click)="guessed4(); randomWord();" [disabled]="timeoutShow"
+                    style="margin: 10px;">Done</button>
+                </div>
+              </div>
+              <hr>
+              <div *ngIf="timeoutShow" style="margin: 10px; font-size: 20px;">
+                Time is over! You have guessed <b>{{result_team4}}
+                </b> words in total
+                <div>
+                  <span style="margin: 10px; font-size: 20px;"> Do you want to play one more round or to finish?</span>
+                </div>
+                <div class="button-row">
+                  <button button mat-raised-button color="accent"
+                    (click)="continue=false; continue2=false; continue3=false;clickDisable=false; timeoutShow=false"
+                    style="margin: 10px;">One more round
+                  </button>
+                  <button button mat-raised-button color="primary" (click)="results2Show = true"
+                    style="margin: 10px;">Finish the
+                    game </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="results2Show">
+            <p style="margin: 10px; font-family: 'Gill Sans', sans-serif; font-size: 20px;">
+              <span style="font-size: 25px;">Here are the results:</span>
+              <br /><span>Team <b>{{team1}}</b>: {{result_team1}} points</span>
+              <br /><span>Team <b>{{team2}}</b>: {{result_team2}} points</span>
+              <br /><span>Team <b>{{team3}}</b>: {{result_team3}} points</span>
+              <br /><span>Team <b>{{team4}}</b>: {{result_team4}} points</span>
+            </p>
+          </div>
         </div>
+
 
       </div>
     </main>
