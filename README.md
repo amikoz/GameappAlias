@@ -1,9 +1,9 @@
 
 ## About the project
 
-The „PartyGame—Association“ Web App is developed by Valeriia Kozenasheva and Han Yang, two Master Students at the University of Cologne, supported by the Institute of Digital Humanities.
+The "Associations game app" web app is developed by Valeriia Kozenasheva and Han Yang, two Master Students at the University of Cologne, supported by the Institute of Digital Humanities.
 
-The idea behind the project is to create a web game for the parties and let people get acquainted with each other in a short period of time. The game aims to bring out more interactions between players and different teams. Players can also learn different ways to explain words and therefore enhance the communication between players during the game.
+The idea behind the "Associations game app" project is to bring the well-known Alias game into digital form. This way, people can always and everywhere play the game and have fun, even if they do not have the paper version with them. The game involves guessing words of varying difficulty by explaining these words using synonyms and other clues. In this game, people have to divide into teams. Whichever team guesses the most words wins the game. 
 
 ## Gameapp
 
